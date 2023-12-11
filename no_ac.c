@@ -1,6 +1,16 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+/**
+ * main - Printing the name of a function and its arguments
+ *
+ * @ac: number of input arguements.
+ * @av: input arguments.
+ *
+ * Return: Always 0.
+ *
+ */
+
 int main(int ac, char **av)
 {
 	int j;
