@@ -14,22 +14,22 @@
 
 int main(void)
 {
-	pid_t child_pid;
+	pid_t childPid;
 	int status;
-	int i;
+	int p;
 	char *args[] = {"ls", "-l", "/tmp", NULL};
 
-	for (i = 1; i <= 5; i++)
+	for (p = 1; p <= 5; p++)
 	{
-		child_pid = fork();
-		if (child_pid == -1)
+		childPid = fork();
+		if (childPid == -1)
 		{
 			perror("Error:");
 			return (1);
 		}
 	}
 	
-	if (child_pid == 0)
+	if (childPid == 0)
 	{
 		execve("/usr/bin/ls", args, NULL);
 		perror("Error:");
@@ -38,8 +38,7 @@ int main(void)
 	}
 	else
 	{
-		/*parent*/
-		wait(&status);
+		wait(&status); /*parent*/
 	}
 
 	return (0);
