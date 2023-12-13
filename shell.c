@@ -1,45 +1,105 @@
+#include "main.h"
 #include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include <string.h>
-#include <sys/wait.h>
-#include <sys/types.h>
+
+
+/**
+ * main - Reads in the input command and calls
+ * other functions.
+ *
+ * Return: Always 0.
+ */
 
 int main(void)
 {
-	size_t buf_size = 0;
-	char *buf = NULL;
-	char *token;
-	int status, j = 0;
-	char **array;
-	pid_t child_pid;
-	
+	char *input = NULL;
+	size_t input_len = 0;
+	struct input_commands commands;
+	int input_return = 0;
+
 	while (1)
 	{
-		write(1, "#cisfun$ ", 9);
-		getline(&buf, &buf_size, stdin);
-		token = strtok(buf, "\t\n");
-		array = malloc(sizeof (char *) * 1024);
+		write(1, "#cisfun$ ", 10);
 
-		while (token)
-		{
-			array[j] = token;
-			token = strtok(NULL, "\t\n");
-			j++;
-		}
-			array[j] = NULL;
-			child_pid = fork();
+		input_return = getline(&input, &input_len, stdin);
 
-		if (child_pid == 0)
+		if (input_return == -1)
 		{
-			if (execve(array[0], array, NULL) == -1)
-				perror("Error");
+			exit(0);
 		}
-		else
+		if (input[strlen(input) - 1] == '\n')
 		{
-			wait(&status);
+			input[strlen(input) - 1] = '\0';
 		}
-		j = 0;
-		free(array);
+
+		if (strcmp(input, "exit") == 0)
+			break;
+
+
+		format_input(input, &commands);
+		execute_command(&commands);
+
 	}
+
+	free(input);
+
+	return (0);
+
+}
+
+/**
+ * format_input - Formats the input string.
+ * @input: The input string used to call the function.
+ * @commands: The input commands.
+ */
+
+void format_input(char *input, struct input_commands *commands)
+{
+	char *token;
+	int i;
+
+	token = strtok(input, " \n\t\r");
+
+	i = 0;
+
+	while (token != NULL && i < MAX_ARGUMENTS - 1)
+	{
+		commands->arguments[i] = malloc(sizeof(char) * (strlen(token) + 1));
+		strcpy(commands->arguments[i], token);
+		i++;
+		token = strtok(NULL, " \n\t\r");
+	}
+
+	commands->arguments[i] = NULL;
+}
+
+
+
+/**
+ * execute_command - Executes input command.
+ * @commands: Input command.
+ */
+
+void execute_command(struct input_commands *commands)
+{
+	pid_t child_pid;
+
+	child_pid = fork();
+
+	if (child_pid == -1)
+	{
+		perror("Error: ");
+		exit(0);
+	}
+	else if (child_pid == 0)
+	{
+		if (execve(commands->name, commands->arguments, NULL) == -1)
+			perror("Error");
+	}
+	else
+	{
+		wait(NULL);
+	}
+
+
+
 }
