@@ -78,7 +78,6 @@ void format_input(char *input, struct input_commands *cmd)
 }
 
 
-
 /**
  * execute_command - Executes input command.
  * @commands: Input command.
@@ -106,7 +105,4 @@ void execute_command(struct input_commands *cmd)
 	{
 		wait(&status);
 	}
-
-
-
 }
