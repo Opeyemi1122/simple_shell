@@ -18,7 +18,7 @@ int main(void)
 
 	while (1)
 	{
-		write(1, "#cisfun$ ", 10);
+		write(1, "($) ", 4);
 
 		input_return = getline(&input, &input_len, stdin);
 
