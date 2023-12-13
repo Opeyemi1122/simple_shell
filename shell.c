@@ -31,8 +31,8 @@ int main(void)
 			input[strlen(input) - 1] = '\0';
 		}
 
-		if (strcmp(input, "exit") == 0)
-			break;
+		/*if (strcmp(input, "exit") == 0)
+			break;*/
 
 
 		format_input(input, &commands);
@@ -57,7 +57,7 @@ void format_input(char *input, struct input_commands *cmd)
 	char *token;
 	int i;
 
-	token = strtok(input, "\t\n");
+	token = strtok(input, " \t\n");
 
 	/*strcpy(cmd->name, token);*/
 
@@ -66,7 +66,7 @@ void format_input(char *input, struct input_commands *cmd)
 	while (token != NULL)
 	{
 		cmd->arguments[i] = malloc(sizeof(char) * (strlen(token) + 1));
-		/*token = strtok(NULL, "\t\n");*/
+		/*token = strtok(NULL, " \t\n");*/
 		cmd->arguments[i] = token;
 		token = strtok(NULL, "\t\n");
 
