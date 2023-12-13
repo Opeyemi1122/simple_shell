@@ -57,7 +57,7 @@ void format_input(char *input, struct input_commands *cmd)
 	char *token;
 	int i;
 
-	token = strtok(input, " \t\n");
+	token = strtok(input, "\t\n");
 
 	/*strcpy(cmd->name, token);*/
 
@@ -68,7 +68,7 @@ void format_input(char *input, struct input_commands *cmd)
 		cmd->arguments[i] = malloc(sizeof(char) * (strlen(token) + 1));
 		/*token = strtok(NULL, "\t\n");*/
 		cmd->arguments[i] = token;
-		token = strtok(NULL, " \t\n");
+		token = strtok(NULL, "\t\n");
 
 		i++;
 	}
@@ -99,11 +99,12 @@ void execute_command(struct input_commands *cmd)
 	else if (child_pid == 0)
 	{
 		if (execve(cmd->arguments[0], cmd->arguments, NULL) == -1)
-			perror("Error");
+			perror("./shell");
 	}
 	else
 	{
 		wait(&status);
+
 	}
 
 
