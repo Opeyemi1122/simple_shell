@@ -31,10 +31,6 @@ int main(void)
 			input[strlen(input) - 1] = '\0';
 		}
 
-		/*if (strcmp(input, "exit") == 0)
-			break;*/
-
-
 		format_input(input, &commands);
 		execute_command(&commands);
 
