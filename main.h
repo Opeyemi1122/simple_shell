@@ -9,7 +9,7 @@
 #include <sys/wait.h>
 #include <stddef.h>
 
-#define MAX_COMMAND_LENGTH (100)
+/*#define MAX_COMMAND_LENGTH (100)*/
 #define MAX_ARGUMENTS (10)
 
 struct input_commands;
@@ -28,7 +28,7 @@ void execute_command(struct input_commands *commands);
 
 typedef struct input_commands
 {
-	char name[MAX_COMMAND_LENGTH];
+	/*char name[MAX_COMMAND_LENGTH];*/
 	char *arguments[MAX_ARGUMENTS];
 } cmd;
 

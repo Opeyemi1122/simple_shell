@@ -52,24 +52,29 @@ int main(void)
  * @commands: The input commands.
  */
 
-void format_input(char *input, struct input_commands *commands)
+void format_input(char *input, struct input_commands *cmd)
 {
 	char *token;
 	int i;
 
-	token = strtok(input, " \n\t\r");
+	token = strtok(input, " \t\n");
+
+	/*strcpy(cmd->name, token);*/
 
 	i = 0;
 
-	while (token != NULL && i < MAX_ARGUMENTS - 1)
+	while (token != NULL)
 	{
-		commands->arguments[i] = malloc(sizeof(char) * (strlen(token) + 1));
-		strcpy(commands->arguments[i], token);
+		cmd->arguments[i] = malloc(sizeof(char) * (strlen(token) + 1));
+		/*token = strtok(NULL, "\t\n");*/
+		cmd->arguments[i] = token;
+		token = strtok(NULL, " \t\n");
+
 		i++;
-		token = strtok(NULL, " \n\t\r");
 	}
 
-	commands->arguments[i] = NULL;
+	cmd->arguments[i] = NULL;
+
 }
 
 
@@ -79,8 +84,10 @@ void format_input(char *input, struct input_commands *commands)
  * @commands: Input command.
  */
 
-void execute_command(struct input_commands *commands)
+void execute_command(struct input_commands *cmd)
 {
+
+	int status;
 	pid_t child_pid;
 
 	child_pid = fork();
@@ -92,12 +99,12 @@ void execute_command(struct input_commands *commands)
 	}
 	else if (child_pid == 0)
 	{
-		if (execve(commands->name, commands->arguments, NULL) == -1)
+		if (execve(cmd->arguments[0], cmd->arguments, NULL) == -1)
 			perror("Error");
 	}
 	else
 	{
-		wait(NULL);
+		wait(&status);
 	}
 
 
