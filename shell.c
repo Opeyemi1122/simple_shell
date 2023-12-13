@@ -49,7 +49,7 @@ int main(void)
 /**
  * format_input - Formats the input string.
  * @input: The input string used to call the function.
- * @commands: The input commands.
+ * @cmd: The input commands.
  */
 
 void format_input(char *input, struct input_commands *cmd)
@@ -81,12 +81,11 @@ void format_input(char *input, struct input_commands *cmd)
 
 /**
  * execute_command - Executes input command.
- * @commands: Input command.
+ * @cmd: Input command.
  */
 
 void execute_command(struct input_commands *cmd)
 {
-
 	int status;
 	pid_t child_pid;
 

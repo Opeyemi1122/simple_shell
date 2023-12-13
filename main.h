@@ -10,28 +10,22 @@
 #include <stddef.h>
 
 /*#define MAX_COMMAND_LENGTH (100)*/
-#define MAX_ARGUMENTS (10)
-
-struct input_commands;
-
-void format_input(char *input, struct input_commands *commands);
-void execute_command(struct input_commands *commands);
-
-
+#define MAX_ARGUMENTS (2)
 
 
 /**
  * struct input_commands - Struct different commands.
- * @name: Command name
  * @arguments: Input arguments.
  */
 
 typedef struct input_commands
 {
-	/*char name[MAX_COMMAND_LENGTH];*/
 	char *arguments[MAX_ARGUMENTS];
 } cmd;
 
+
+void format_input(char *input, struct input_commands *commands);
+void execute_command(struct input_commands *commands);
 
 
 #endif
