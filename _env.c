@@ -1,7 +1,7 @@
 #include "main.h"
 
 /**
- * print_environment - Prints the environment variables
+ * print_env - Prints the environment variables
  * Return: On success, Always o
  * -1 is returned on error
  * It is initailized using the 'env' command
