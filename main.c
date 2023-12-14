@@ -20,7 +20,7 @@ int main(void)
 	while (1)
 	{
 		if (isatty(STDIN_FILENO) == 1)
-			write(STDOUT_FILENO, "$ ", 2);
+			write(STDOUT_FILENO, "#cisfun$ ", 9);
 
 		input_return = getline(&input, &input_len, stdin);
 
