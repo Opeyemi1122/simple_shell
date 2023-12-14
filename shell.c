@@ -39,7 +39,7 @@ void format_input(char *input, struct input_commands *cmd)
 
 void execute_command(struct input_commands *cmd)
 {
-	if (execve(cmd->arguments[0], cmd->arguments, NULL) == -1)
+	if (execve(cmd->arguments[0], cmd->arguments, environ) == -1)
 	{
 		perror("Error");
 		return;
