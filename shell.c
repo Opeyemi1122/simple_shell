@@ -39,35 +39,10 @@ void format_input(char *input, struct input_commands *cmd)
 
 void execute_command(struct input_commands *cmd)
 {
-	int status;
-	pid_t child_pid;
-
-	if (_strcmp(cmd->arguments[0], "env") == 0)
+	if (execve(cmd->arguments[0], cmd->arguments, NULL) == -1)
 	{
-		print_env();
+		perror("Error");
+		return;
 	}
-
-	child_pid = fork();
-
-	if (child_pid == -1)
-	{
-		perror("Error: ");
-		exit(0);
-	}
-	else if (child_pid == 0)
-	{
-		if (execve(cmd->arguments[0], cmd->arguments, NULL) == -1)
-		{
-			perror("Error:");
-			return;
-		}
-	}
-	else
-	{
-		wait(&status);
-
-	}
-
-
 
 }
