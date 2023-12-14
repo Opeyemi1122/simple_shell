@@ -21,7 +21,7 @@ int main(void)
 		int status;
 
 		if (isatty(STDIN_FILENO) == 1)
-			write(STDOUT_FILENO, "#cisfun$ ", 9);
+			write(STDOUT_FILENO, "$ ", 2);
 
 		input_return = getline(&input, &input_len, stdin);
 
