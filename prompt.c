@@ -15,12 +15,12 @@ int main(void)
 
 	buffer = malloc(sizeof(char) * n);
 
-	printf("$ ");
+	write(1, "$ ", 2);
 	num_char = getline(&buffer, &n, stdin);
 
-	printf("%lu\n", num_char);
+	(void)num_char;
 
-	free(buff);
+	free(buffer);
 
 	return (0);
 
