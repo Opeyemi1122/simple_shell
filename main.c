@@ -1,6 +1,4 @@
 #include "main.h"
-#include <stdio.h>
-
 
 /**
  * main - Reads in the input command and calls
