@@ -13,7 +13,7 @@
 #include <errno.h>
 
 /*#define MAX_COMMAND_LENGTH (100)*/
-#define MAX_ARGUMENTS (10)
+#define MAX_ARGUMENTS (20)
 
 
 /**
