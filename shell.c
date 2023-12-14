@@ -18,12 +18,10 @@ void format_input(char *input, struct input_commands *cmd)
 
 	i = 0;
 
-	while (token != NULL)
+	while (token != NULL && i < MAX_ARGUMENTS - 1)
 	{
-		cmd->arguments[i] = malloc(sizeof(char) * (_strlen(token) + 1));
-		/*token = strtok(NULL, " \t\n");*/
 		cmd->arguments[i] = token;
-		token = strtok(NULL, "\t\n");
+		token = strtok(NULL, " \t\n");
 
 		i++;
 	}
@@ -43,6 +41,11 @@ void execute_command(struct input_commands *cmd)
 {
 	int status;
 	pid_t child_pid;
+
+	if (_strcmp(cmd->arguments[0], "env") == 0)
+	{
+		print_env();
+	}
 
 	child_pid = fork();
 

@@ -13,7 +13,7 @@
 #include <errno.h>
 
 /*#define MAX_COMMAND_LENGTH (100)*/
-#define MAX_ARGUMENTS (2)
+#define MAX_ARGUMENTS (10)
 
 
 /**
@@ -26,6 +26,7 @@ typedef struct input_commands
 	char *arguments[MAX_ARGUMENTS];
 } cmd;
 
+extern char **environ;
 
 void format_input(char *input, struct input_commands *commands);
 void execute_command(struct input_commands *commands);
@@ -33,6 +34,7 @@ char *_strcpy(char *dest, char *src);
 int _strlen(char *c);
 int _strcmp(char *str1, char *str2);
 void prompt(void);
+int print_env(void);
 
 
 #endif
