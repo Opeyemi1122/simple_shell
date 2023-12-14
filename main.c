@@ -12,13 +12,14 @@
 int main(void);
 int main(void)
 {
-	char *input = NULL;
-	size_t input_len = 0;
-	struct input_commands commands;
-	ssize_t input_return;
 
 	while (1)
 	{
+		char *input = NULL;
+		size_t input_len;
+		struct input_commands commands;
+		ssize_t input_return;
+
 		if (isatty(STDIN_FILENO) == 1)
 			write(STDOUT_FILENO, "#cisfun$ ", 9);
 
@@ -30,17 +31,13 @@ int main(void)
 			free(input);
 			exit(EXIT_FAILURE);
 		}
-		if (input[_strlen(input) - 1] == '\n')
-		{
-			input[_strlen(input) - 1] = '\0';
-		}
 
 		format_input(input, &commands);
 		execute_command(&commands);
 
-	}
+		free(input);
 
-	free(input);
+	}
 
 	return (0);
 

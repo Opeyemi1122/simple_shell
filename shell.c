@@ -57,7 +57,10 @@ void execute_command(struct input_commands *cmd)
 	else if (child_pid == 0)
 	{
 		if (execve(cmd->arguments[0], cmd->arguments, NULL) == -1)
-			perror("./shell");
+		{
+			perror("Error:");
+			return;
+		}
 	}
 	else
 	{
