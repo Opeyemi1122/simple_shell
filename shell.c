@@ -20,7 +20,7 @@ void format_input(char *input, struct input_commands *cmd)
 
 	while (token != NULL)
 	{
-		cmd->arguments[i] = malloc(sizeof(char) * (strlen(token) + 1));
+		cmd->arguments[i] = malloc(sizeof(char) * (_strlen(token) + 1));
 		/*token = strtok(NULL, " \t\n");*/
 		cmd->arguments[i] = token;
 		token = strtok(NULL, "\t\n");

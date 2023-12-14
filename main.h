@@ -9,6 +9,8 @@
 #include <sys/wait.h>
 #include <stddef.h>
 #include <sys/stat.h>
+#include <limits.h>
+#include <errno.h>
 
 /*#define MAX_COMMAND_LENGTH (100)*/
 #define MAX_ARGUMENTS (2)
@@ -27,7 +29,10 @@ typedef struct input_commands
 
 void format_input(char *input, struct input_commands *commands);
 void execute_command(struct input_commands *commands);
-extern char **environ;
+char *_strcpy(char *dest, char *src);
+int _strlen(char *c);
+int _strcmp(char *str1, char *str2);
+void prompt(void);
 
 
 #endif

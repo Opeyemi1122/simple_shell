@@ -18,7 +18,7 @@ int main(void)
 
 	while (1)
 	{
-		write(1, "#cisfun$ ", 9);
+		write(STDOUT_FILENO, "$ ", 2);
 
 		input_return = getline(&input, &input_len, stdin);
 
@@ -26,9 +26,9 @@ int main(void)
 		{
 			exit(0);
 		}
-		if (input[strlen(input) - 1] == '\n')
+		if (input[_strlen(input) - 1] == '\n')
 		{
-			input[strlen(input) - 1] = '\0';
+			input[_strlen(input) - 1] = '\0';
 		}
 
 		format_input(input, &commands);
