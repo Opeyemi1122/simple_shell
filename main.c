@@ -1,71 +1,73 @@
 #include "main.h"
 
 /**
- * main - Reads in the input command and calls
- * other functions.
+ * free_input_data - frees data structure
  *
- * Return: Always 0.
+ * @data: data structure
+ * Return: no return
  */
-
-int main(void);
-int main(void)
+void free_input_data(runtime_data *data)
 {
+	unsigned int i;
 
-	while (1)
+	for (i = 0; data->_environ[i]; i++)
 	{
-		char *input = NULL;
-		size_t input_len;
-		struct input_commands commands;
-		ssize_t input_return;
-		pid_t child_pid;
-		int status;
-
-		if (isatty(STDIN_FILENO) == 1)
-			write(STDOUT_FILENO, "$ ", 2);
-
-		input_return = getline(&input, &input_len, stdin);
-
-		if (input_return == -1)
-		{
-			perror("error.\n");
-			free(input);
-			exit(EXIT_FAILURE);
-		}
-
-		format_input(input, &commands);
-
-		if (_strcmp(commands.arguments[0], "exit") == 0)
-			break;
-		else if (_strcmp(commands.arguments[0], "env") == 0)
-		{
-			print_env();
-			continue;
-		}
-
-		child_pid = fork();
-
-		if (child_pid == -1)
-		{
-			perror("fork failure.\n");
-			free(input);
-			exit(EXIT_FAILURE);
-		}
-		if (child_pid == 0)
-			execute_command(&commands);
-		else
-		{
-			if (waitpid(child_pid, &status, 0) == -1)
-			{
-				perror("waitpid failure.\n");
-				free(input);
-				exit(EXIT_FAILURE);
-			}
-		}
-
-		free(input);
-
+		free(data->_environ[i]);
 	}
 
-	return (0);
+	free(data->_environ);
+	free(data->pid);
+}
 
+/**
+ * set_data - Initialize data structure
+ *
+ * @data: data structure
+ * @argv: argument vector
+ * Return: no return
+ */
+void set_data(runtime_data *data, char **argv)
+{
+	unsigned int i;
+
+	data->argv = argv;
+	data->input = NULL;
+	data->args = NULL;
+	data->status = 0;
+	data->count = 1;
+
+	for (i = 0; environ[i]; i++)
+		;
+
+	data->_environ = malloc(sizeof(char *) * (i + 1));
+
+	for (i = 0; environ[i]; i++)
+	{
+		data->_environ[i] = _strdup(environ[i]);
+	}
+
+	data->_environ[i] = NULL;
+	data->pid = aux_itoa(getpid());
+}
+
+/**
+ * main - Entry point
+ *
+ * @ac: argument count
+ * @argv: argument vector
+ *
+ * Return: 0 on success.
+ */
+int main(int ac, char **argv)
+{
+	runtime_data data;
+	(void) ac;
+
+	signal(SIGINT, get_sigint);
+	set_data(&data, argv);
+	shell_loop(&data);
+	free_input_data(&data);
+	if (data.status < 0)
+		return (255);
+	return (data.status);
 }
