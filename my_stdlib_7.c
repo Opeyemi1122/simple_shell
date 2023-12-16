@@ -1,4 +1,4 @@
-ginclude "main.h"
+#include "main.h"
 
 /**
  * repeated_char - counts the repetitions of a char

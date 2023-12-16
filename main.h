@@ -201,9 +201,6 @@ char *error_get_alias(char **args);
 char *error_env(runtime_data *datash);
 char *error_syntax(char **args);
 char *error_permission(char **args);
-char *error_path_126(runtime_data *datash);
-
-
 
 
 
