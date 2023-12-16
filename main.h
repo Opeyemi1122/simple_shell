@@ -193,7 +193,7 @@ void aux_help_alias(void);
 void aux_help_cd(void);
 int get_help(runtime_data *datash);
 int get_error(runtime_data *datash, int eval);
-
+char *strcat_cd(runtime_data *, char *, char *, char *);
 
 
 
