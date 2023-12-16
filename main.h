@@ -194,6 +194,14 @@ void aux_help_cd(void);
 int get_help(runtime_data *datash);
 int get_error(runtime_data *datash, int eval);
 char *strcat_cd(runtime_data *, char *, char *, char *);
+char *error_get_cd(runtime_data *datash);
+char *error_not_found(runtime_data *datash);
+char *error_exit_shell(runtime_data *datash);
+char *error_get_alias(char **args);
+char *error_env(runtime_data *datash);
+char *error_syntax(char **args);
+char *error_permission(char **args);
+char *error_path_126(runtime_data *datash);
 
 
 
